@@ -1,13 +1,11 @@
 services:
+  services:
   vpn-gateway:
-    # For local test:
-    build: .
-    # After publish, switch to:
-    # image: youruser/openvpn-wg-gateway:latest
+    image: ama15/openvpn-wg-gateway:tcp
     container_name: vpn-gateway
     privileged: true
     environment:
-      - VPN_PUBLIC_HOST=REPLACE_WITH_EXTERNAL_IP
+      - VPN_PUBLIC_HOST=THEIR_PUBLIC_IP_OR_DNS
     volumes:
       - ./vpn-data:/vpn-data
       - ./openvpn:/etc/openvpn
@@ -15,4 +13,3 @@ services:
     ports:
       - "1194:1194/udp"
     restart: unless-stopped
-
