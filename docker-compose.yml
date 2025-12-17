@@ -1,0 +1,18 @@
+services:
+  vpn-gateway:
+    # For local test:
+    build: .
+    # After publish, switch to:
+    # image: youruser/openvpn-wg-gateway:latest
+    container_name: vpn-gateway
+    privileged: true
+    environment:
+      - VPN_PUBLIC_HOST=172.232.196.139
+    volumes:
+      - ./vpn-data:/vpn-data
+      - ./openvpn:/etc/openvpn
+      - ./wireguard/wg0.conf:/etc/wireguard/wg0.conf:ro
+    ports:
+      - "1194:1194/udp"
+    restart: unless-stopped
+
